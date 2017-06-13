@@ -12,16 +12,21 @@ options = {
 OptionParser.new do |opts|
   opts.banner = "Usage: tunnelme [options]"
 
-  opts.on('-s TUN_SERVER', '--server TUN_SERVER', 'tun server') do |value|
+  opts.on('-s', '--server=server', 'tun server') do |value|
     options[:tun_server] = vaue
   end
 
-  opts.on('-d SUBDOMAIN', '--domain SUBDOMAIN', 'subdomain') do |value|
+  opts.on('-d', '--domain=domain', Integer, 'subdomain') do |value|
     options[:subdomain] = value
   end
 
-  opts.on('-p PORT', '--port PORT', 'local port') do |value|
+  opts.on('-p', '--port=port', Integer, 'local port') do |value|
     options[:port] = value.to_i
+  end
+
+  opts.on('-h', '--help', 'Shows this help message.') do
+    puts opts
+    exit
   end
 end.parse!
 
