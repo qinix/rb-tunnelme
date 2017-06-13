@@ -1,3 +1,30 @@
 #!/usr/bin/env ruby
 
 require "tunnelme"
+require 'optparse'
+
+options = {
+  tun_server: 'https://localtunnel.me',
+  subdomain: nil,
+  port: 3000
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: tunnelme [options]"
+
+  opts.on('-s TUN_SERVER', '--server TUN_SERVER', 'tun server') do |value|
+    options[:tun_server] = vaue
+  end
+
+  opts.on('-d SUBDOMAIN', '--domain SUBDOMAIN', 'subdomain') do |value|
+    options[:subdomain] = value
+  end
+
+  opts.on('-p PORT', '--port PORT', 'local port') do |value|
+    options[:port] = value.to_i
+  end
+end.parse!
+
+tunnel = Tunnelme::Tunnel.new(**options)
+puts "your url is: #{tunnel.url}"
+tunnel.serve
