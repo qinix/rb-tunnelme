@@ -26,11 +26,11 @@ module RailsServerExt
   private
 
   def tunnelme_server
-    tunnelme_config['tun_server'] || 'https://localtunnel.me'
+    ENV['TUN_SERVER'] || tunnelme_config['tun_server'] || 'https://localtunnel.me'
   end
 
   def tunnelme_subdomain
-    tunnelme_config['domain']
+    ENV['TUN_DOMAIN'] || tunnelme_config['domain']
   end
 
   def tunnelme_config
