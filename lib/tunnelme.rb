@@ -1,5 +1,3 @@
 require "tunnelme/version"
-
-module Tunnelme
-  # Your code goes here...
-end
+require 'tunnelme/tunnel'
+require 'tunnelme/tunnel_cluster'
