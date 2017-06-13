@@ -22,7 +22,7 @@ module Tunnelme
     def serve
       @tunnel_cluster = TunnelCluster.new remote_host: @remote_host, remote_port: @remote_port, local_port: @local_port
       threads = @max_conn.times.map { Thread.new { @tunnel_cluster.open }}
-      threads.each { |t| t.join }
+      threads.each(&:join)
     end
   end
 end
