@@ -12,21 +12,15 @@ module Tunnelme
     end
 
     class LocalConnection < EventMachine::Connection
-      attr_reader :remote, :data
+      attr_reader :remote
 
-      def initialize(remote, data)
+      def initialize(remote)
         @remote = remote
-        @data = data
         super
-      end
-
-      def post_init
-        send_data data
       end
 
       def receive_data data
         remote.send_data data
-
       end
     end
 
@@ -39,17 +33,18 @@ module Tunnelme
       end
 
       def unbind
+        @local = nil
         reconnect cluster.remote_host, cluster.remote_port unless cluster.stop
       end
 
       def receive_data data
-        send_data_to_local data
+        local.send_data data
       end
 
       private
 
-      def send_data_to_local data
-        EM.connect 'localhost', cluster.local_port, LocalConnection, self, data
+      def local
+        @local ||= EM.connect 'localhost', cluster.local_port, LocalConnection, self
       end
     end
 
