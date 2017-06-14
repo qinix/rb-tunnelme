@@ -16,7 +16,7 @@ OptionParser.new do |opts|
     options[:tun_server] = value
   end
 
-  opts.on('-d', '--domain=domain', Integer, 'subdomain') do |value|
+  opts.on('-d', '--domain=domain', String, 'subdomain') do |value|
     options[:subdomain] = value
   end
 
